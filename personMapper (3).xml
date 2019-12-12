@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="global.sesec.person.dao.PersonMapper">
+
+<!-- 회원 정보 저장 -->
+<insert id="insertPerson" parameterType="person">
+insert into person (
+	num
+	, name
+	, age
+)
+values (
+	person_seq.nextval
+	, #{name}
+	, #{age}
+)
+</insert>
+
+<!-- 회원 정보 삭제 -->
+<!-- int, string, list, map -->
+<delete id="deletePerson" parameterType="int">
+delete from person where num= #{num}
+</delete>
+
+<!-- 회원 1명의 정보 읽기 -->
+<select id="selectPerson" parameterType="int" resultType="person">
+select * from person where num=#{num}
+</select>
+
+<!-- 이름으로 검색하기 -->
+<select id="selectPersonByName" parameterType="string" resultType="person">
+select * from person where name like '%' || #{name} || '%'
+</select>
+
+<!-- 모든 회원 보기 -->
+
+</mapper>
+
+
+
+
+
+
+
+
