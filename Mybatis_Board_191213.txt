@@ -1,0 +1,6 @@
+[게시판 예제]
+
+*패키지와 클래스들
+global.sesoc.board.ui	-	BoardMain, BoardUI
+global.sesoc.board.vo	-	BoardVO	
+global.sesoc.board.ado	-	MybatisConfig, BoardDAO, BoardMapper

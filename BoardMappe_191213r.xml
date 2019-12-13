@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 글 처리 SQL -->
+<mapper namespace="global.sesoc.board.dao.BoardMapper"> 
+
+<!-- 글쓰기 -->
+<insert id="writeBoard" parameterType="board"> 
+
+insert into board (
+	num
+	, id
+	, title
+	, contents
+)
+values (
+	board_seq.nextval
+	, #{id}
+	, #{title}	
+	, #{contents}	
+)	
+</insert>   
+
+<!-- 글 읽기 -->
+<select id ="readBoard" parameterType="int" resultType="board">  
+select * from board where num = #{num} 							
+</select>
+
+<!-- 글 목록 보기 -->
+<select id = "listBoard" resultType ="board">
+select * from board order by num 
+</select>
+ 
+</mapper>
