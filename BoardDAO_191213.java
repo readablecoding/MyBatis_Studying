@@ -71,7 +71,7 @@ public class BoardDAO
 	public ArrayList<BoardVO> listBoard() 
 	{
 		SqlSession ss = null;
-		ArrayList<BoardVO> list = new ArrayList<BoardVO>(); 
+		ArrayList<BoardVO> list = null; 
 		try 
 		{
 			ss = factory.openSession(); //세션을 연다. 나중에 commit 또는 rollback 한다

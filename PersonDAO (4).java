@@ -117,7 +117,7 @@ public class PersonDAO
 	public ArrayList<Person> selectPersonByName(String s)
 	{
 		SqlSession ss = null;
-		ArrayList<Person> list = new ArrayList<Person>();
+		ArrayList<Person> list = null;
 		try
 		{
 			ss = factory.openSession(); //技记 凯扁
@@ -140,7 +140,7 @@ public class PersonDAO
 	public ArrayList<Person> selectPersonAll()
 	{
 		SqlSession ss = null;
-		ArrayList<Person> list = new ArrayList<Person>();
+		ArrayList<Person> list = null;
 		try
 		{
 			ss = factory.openSession(); //技记 凯扁
