@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 글 처리 SQL -->
+<mapper namespace="global.sesoc.board.dao.BoardMapper">  <!--인터페이스 경로를 설정 -->
+
+<!-- 글 저장-->
+<insert id="writeBoard" parameterType="board"> 
+
+insert into board (
+	num
+	, id
+	, title
+	, contents
+)
+values (
+	board_seq.nextval
+	, #{id}
+	, #{title}	
+	, #{contents}	
+)	
+</insert>   <!-- 열고 닫는 태그를 정확히 한다.짝이 맞아야 한다. -->
+
+<!-- 글 1개 읽기 -->
+<select id ="readBoard" parameterType="int" resultType="board">  
+select * from board where num = #{num} 							
+</select>
+
+<!-- 모든 글 읽기 -->
+<select id = "listBoard" resultType ="board">
+select * from board order by num desc
+</select>
+
+<!-- 글 삭제 -->
+<delete id = "deleteBoard" parameterType = "int">
+delete from board where num = #{num}
+</delete>
+
+<!-- 글 수정 -->
+<update id ="updateBoard" parameterType = "board">
+update board set title = #{title}, contents = #{contents} where num = #{num}
+</update>
+ 
+</mapper>
+
+
+
