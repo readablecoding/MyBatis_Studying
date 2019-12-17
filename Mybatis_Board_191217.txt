@@ -1,0 +1,13 @@
+[게시판 예제]
+
+*패키지와 클래스들
+global.sesoc.board.ui	-	BoardMain, BoardUI
+global.sesoc.board.vo	-	BoardVO	
+global.sesoc.board.dao	-	MybatisConfig, BoardDAO, BoardMapper
+
+*src 폴더 밑에 존재하는 것
+board.sql 				
+BoardMapper.xml 		
+db.properties		
+Mybatis_Board.txt		
+mybatis-config.xml 		

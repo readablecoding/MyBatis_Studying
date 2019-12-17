@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 글 처리 SQL -->
+<mapper namespace="global.sesoc.board.dao.BoardMapper">  <!--인터페이스 경로를 설정 -->
+
+<!-- 글 저장-->
+<insert id="writeBoard" parameterType="board"> 
+
+insert into board (
+	num
+	, id
+	, title
+	, contents
+)
+values (
+	board_seq.nextval
+	, #{id}
+	, #{title}	
+	, #{contents}	
+)	
+</insert>   <!-- 열고 닫는 태그를 정확히 한다.짝이 맞아야 한다. -->
+
+<!-- 글 1개 읽기 또는 모든 글 읽기 -->
+<select id ="readBoard" parameterType="int" resultType="board">  
+select 
+	*
+from board 
+	<if test = "_parameter != 0"> <!--_parameter이 0이 아닐 때, _parameter는 int, string, double로 get메소드가 없을 때 사용  --> 
+	where num = #{num} 
+	</if>		
+order by num desc					
+</select>
+
+<!-- 전체 글 보기 -->
+<select id = "listBoard" resultType = "board">
+select * from board order by num desc
+</select>
+
+<!-- 글 삭제 -->
+<delete id = "deleteBoard" parameterType = "int">
+delete from board where num = #{num}
+</delete>
+
+<!-- 글 수정 -->
+<update id ="updateBoard" parameterType = "board">
+update 
+	board 
+set 
+	num = #{num}	<!-- title, contents에 아무것도 없다면 번호 그대로 나오니 변화가 없게 된다. -->
+	<if test ="title != null and title != ''">
+	,title = #{title}
+	</if>
+	<if test ="contents != null and contents != ''">	<!--내용이 null이 아니고 빈칸이 아니면 내용 받음,contents는 get contents(), ''는 길이가 0인 문자열 -->
+	, contents = #{contents} 
+	</if>
+where 
+	num = #{num}
+</update>
+
+<!-- 글 검색 -->
+<select id = "searchBoard" parameterType ="map" resultType ="board"> <!-- 인터페이스와 같아야 한다. Hashmap은 map으로 이미 설정됨-->
+select
+	*
+from 
+	board 
+<where> <!--  <where>는 조건이 있을 때만 붙게끔 한다. -->
+	<if test ="type == 1">		<!-- type에 따른 word가 나오게끔 한다. -->
+	upper(title) like '%' || upper(#{word}) || '%'	<!-- upper로 대문자로 만든다. -->
+	</if>
+	<if test ="type == 2">
+	upper(contents) like '%' || upper(#{word}) || '%' <!--'%' || upper(#{word}) || '%'로 글 가운데 나오는 것을 찾아 대문자로 	바꿈   -->
+	</if>
+</where>
+order by 
+	num desc
+</select>
+ 
+</mapper>
+
+
+
