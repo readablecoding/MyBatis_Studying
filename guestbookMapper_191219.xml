@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestbook.dao.GuestbookMapper">
+
+<!-- 등록  -->
+<insert id = "insertGuestbook" parameterType = "Guestbook">
+insert into guestbook(
+	sn
+	,author
+	,content
+)
+values(
+	guestbook_seq.nextval
+	,#{author}
+	,#{content}
+)
+</insert>
+
+<!-- 조회  -->
+<select id = "selectGuestbook" resultType = "Guestbook">
+select 
+	*
+from
+	guestbook
+order by
+	sn desc
+</select>
+
+<!-- 삭제  -->
+<delete id = "deleteGuestbook" parameterType = "int">
+delete from
+	guestbook
+where 
+	sn = #{sn}
+</delete>
+
+
+</mapper>
