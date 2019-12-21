@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 글 처리 SQL -->
+<mapper namespace = "board.dao.BoardMapper">
+<!-- 쓰기 -->
+<insert id = "write" parameterType = "board">
+insert into board(
+	num
+	,id
+	,title
+	,contents
+)
+values(	
+	board_seq.nextval
+	,#{id}
+	,#{title}
+	,#{contents}
+)
+</insert>
+
+<!-- 읽기 -->
+<select id = "read" parameterType = "int" resultType = "board">
+select 
+	*
+from
+	board
+<if test = "_parameter != 0">
+where num = #{num}
+</if>
+order by
+	num desc
+</select>
+
+<!-- 수정 -->
+<update id = "update" parameterType = "board">
+update  
+	board
+set
+	num = #{num}
+<if test = "title != null and title != ''">
+	,title = #{title}
+</if>
+<if test = "contents != null and contents != ''">
+	,contents = #{contents}
+</if>	
+where
+	num = #{num}
+</update>
+
+<!-- 삭제 -->
+<delete id = "delete" parameterType = "int">
+delete from 
+	board 
+where 
+	num = #{num}
+</delete>
+
+
+<!-- 검색-->
+<select id = "search" parameterType = "map" resultType = "board">
+select 
+	*
+from
+	board
+<where>
+	<if test = "type == 1">
+	upper(title) like '%' || upper(#{word}) || '%'
+	</if>
+	<if test = "type == 2">
+	upper(contents) like '%' || upper(#{word}) || '%'
+	</if>
+
+</where>
+order by 
+	num desc
+
+</select>
+
+
+</mapper>
+  
